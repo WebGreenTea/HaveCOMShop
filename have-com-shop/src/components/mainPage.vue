@@ -38,8 +38,11 @@
     </div>
   </nav>
 
-  <div class="container-fulid">
-    <img src="https://drive.google.com/uc?export=view&id=1lw1o9JVs42xuZB_zly4zzdc6QurYrjW0" style="max-width: 100%">
+  <div class="container-fulid bg-overlay">
+    <div class="text-center">
+      <h1>จัดสเปคคอมของคุณเอง พร้อมบริการประกอบฟรี</h1>
+      <button type="button" class="btn btn-primary btn-lg">เริ่มจัดสเปค</button>
+    </div>
   </div>
 
   <ul class="nav nav-pills nav-fill mt-1">
@@ -76,20 +79,37 @@
   </ul>
   <div class="container-fluid mt-4">
     <div class="row">
-      <div class="col-lg-2" v-for="(product,index) in products" :key="index" >
-        <div class="card">
+      <div
+        class="col-lg-2"
+        v-for="(product, index) in products"
+        :key="index"
+        @click="viewProduct(product._id)"
+      >
+        <div class="card" id="productArea">
           <img :src="prefixIMGurl + product.img" alt="" />
-          <div class="card-body">
+          <div class="card-body" v-if="product.count != 0">
             <h6 class="card-title">{{ product.PDname }}</h6>
-            <h5 class="card-text" id="price" >{{ product.price.toLocaleString() }} THB</h5>
-            <h6 class="card-text" id="price">{{priceInBTC(product.price)}} <img src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m" style="max-width: 9%"></h6>
-            
+            <h5 class="card-text" id="price">
+              {{ product.price.toLocaleString() }} THB
+            </h5>
+            <h6 class="card-text" id="price">
+              {{ priceInBTC(product.price) }}
+              <img
+                src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m"
+                style="max-width: 9%"
+              />
+            </h6>
+          </div>
+          <div class="card-body" v-else>
+            <h6 class="card-title">{{ product.PDname }}</h6>
+            <h4 class="card-text" id="price">
+              สินค้าหมด
+            </h4>
           </div>
         </div>
       </div>
     </div>
   </div>
-   
 </template>
 
 
@@ -107,7 +127,7 @@ export default {
       Inlogin: false,
       products: null,
       prefixIMGurl: "https://drive.google.com/uc?export=view&id=",
-      btc: null
+      btc: null,
     };
   },
   methods: {
@@ -115,10 +135,12 @@ export default {
       localStorage.removeItem("token");
       this.$router.push("/login");
     },
-    priceInBTC(thb){
-      return  (thb/this.btc).toFixed(7)
-    }
-    
+    priceInBTC(thb) {
+      return (thb / this.btc).toFixed(7);
+    },
+    viewProduct(id) {
+      this.$router.push({ name: "productDetail", params: { id: id } });
+    },
   },
   async created() {
     //checkLogin
@@ -134,13 +156,22 @@ export default {
       //console.log(this.products[0].price)
     });
     //get BTC price
-    this.btc =  await BTCprice();
-
+    this.btc = await BTCprice();
   },
 };
 </script>
 <style>
-#price{
-  
+#productArea {
+  cursor: pointer;
+}
+
+.bg-overlay {
+  background: url("https://drive.google.com/uc?export=view&id=1lw1o9JVs42xuZB_zly4zzdc6QurYrjW0");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  color: #fff;
+  height: 300px;
+  padding-top: 100px;
 }
 </style>

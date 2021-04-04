@@ -5,6 +5,7 @@ import login from "@/components/login.vue";
 import helloworld from "@/components/HelloWorld.vue";
 import CPU from "@/components/CPU.vue";
 import addPD from "@/components/admin/addPD.vue";
+import productDetail from "@/components/productDetail.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/addPD",
     name: "addPD",
     component: addPD,
+  },
+  {
+    path: "/productDetail/:id",
+    name: "productDetail",
+    component: productDetail,
   },
 
 ];
