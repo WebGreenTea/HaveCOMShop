@@ -76,7 +76,7 @@
   </ul>
   <div class="container-fluid mt-4">
     <div class="row">
-      <div class="col-lg-2" v-for="product in products" :key="product._id">
+      <div class="col-lg-2" v-for="(product,index) in products" :key="index" >
         <div class="card">
           <img :src="prefixIMGurl + product.img" alt="" />
           <div class="card-body">
