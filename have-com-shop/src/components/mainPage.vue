@@ -18,7 +18,9 @@
               >{{ username }}</a
             >
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-              <li><a href="" @click="Logout" class="dropdown-item">Logout</a></li>
+              <li>
+                <a href="" @click="Logout" class="dropdown-item">Logout</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -36,13 +38,11 @@
     </div>
   </nav>
 
-  
-
-  <div class="container mt-5">
-    <h1 v-show="Inlogin">Hello {{ username }}</h1>
+  <div class="container-fulid">
+    <img src="https://drive.google.com/uc?export=view&id=1lw1o9JVs42xuZB_zly4zzdc6QurYrjW0" style="max-width: 100%">
   </div>
 
-  <ul class="nav nav-pills nav-fill">
+  <ul class="nav nav-pills nav-fill mt-1">
     <li class="nav-item">
       <a href="#" class="nav-link active">สินค้าทั้งหมด</a>
     </li>
@@ -74,21 +74,40 @@
       <a href="/more" class="nav-link">อืนๆ</a>
     </li>
   </ul>
-  <h1 style="text-align: center">TEST</h1>
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <div class="col-lg-2" v-for="product in products" :key="product._id">
+        <div class="card">
+          <img :src="prefixIMGurl + product.img" alt="" />
+          <div class="card-body">
+            <h6 class="card-title">{{ product.PDname }}</h6>
+            <h5 class="card-text" id="price" >{{ product.price.toLocaleString() }} THB</h5>
+            <h6 class="card-text" id="price">{{priceInBTC(product.price)}} <img src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m" style="max-width: 9%"></h6>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   
 </template>
 
 
 
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 import { checklogin } from "./js/verify";
+import { BTCprice } from "./js/BTCprice";
 
 export default {
   data() {
     return {
       username: "",
       Inlogin: false,
+      products: null,
+      prefixIMGurl: "https://drive.google.com/uc?export=view&id=",
+      btc: null
     };
   },
   methods: {
@@ -96,12 +115,32 @@ export default {
       localStorage.removeItem("token");
       this.$router.push("/login");
     },
+    priceInBTC(thb){
+      return  (thb/this.btc).toFixed(7)
+    }
+    
   },
   async created() {
+    //checkLogin
     const { username, login } = await checklogin();
     this.Inlogin = login;
     this.username = username;
     //console.log(this.Inlogin+" "+this.username)
+
+    //get product data
+    const apiURL = "http://localhost:3000/product/getPD";
+    axios.get(apiURL).then((res) => {
+      this.products = res.data;
+      //console.log(this.products[0].price)
+    });
+    //get BTC price
+    this.btc =  await BTCprice();
+
   },
 };
 </script>
+<style>
+#price{
+  
+}
+</style>

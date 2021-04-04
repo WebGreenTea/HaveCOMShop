@@ -4,6 +4,8 @@ import register from "@/components/register.vue";
 import login from "@/components/login.vue";
 import helloworld from "@/components/HelloWorld.vue";
 import CPU from "@/components/CPU.vue";
+import addPD from "@/components/admin/addPD.vue";
+
 const routes = [
   {
     path: "/",
@@ -29,6 +31,11 @@ const routes = [
     path: "/CPU",
     name: "CPU",
     component: CPU,
+  },
+  {
+    path: "/addPD",
+    name: "addPD",
+    component: addPD,
   },
 
 ];
