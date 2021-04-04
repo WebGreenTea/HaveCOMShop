@@ -26,7 +26,6 @@ router.post('/addPD', async (req, res) => {
                 count: req.body.count,
                 type:req.body.type,
                 img:req.body.url.split("/")[5]
-    
             }
         }
         //console.log(data)
