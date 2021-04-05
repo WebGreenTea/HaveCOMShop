@@ -116,6 +116,7 @@
 
 
 <script>
+import {MainURL} from './js/MainUrl';
 import axios from "axios";
 import { checklogin } from "./js/verify";
 import { BTCprice } from "./js/BTCprice";
@@ -150,9 +151,10 @@ export default {
     //console.log(this.Inlogin+" "+this.username)
 
     //get product data
-    const apiURL = "http://localhost:3000/product/getPD";
+    const apiURL = MainURL +"/product/getPD";
     axios.get(apiURL).then((res) => {
       this.products = res.data;
+      console.log(res.data)
       //console.log(this.products[0].price)
     });
     //get BTC price
@@ -175,6 +177,10 @@ export default {
   padding-top: 100px;
 }
 
+.card:hover{
+  background-color: #17a2b8;
+  color: #fff;
+}
 </style>
 
 
