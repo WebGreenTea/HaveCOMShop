@@ -1,7 +1,7 @@
 <template>
   <!-- Nav bar -->
   <nav
-    class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-between flex-nowrap flex-row"
+    class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between flex-nowrap flex-row"
   >
     <div class="container">
       <router-link to="/" class="navbar-brand float-left"
@@ -41,40 +41,40 @@
   <div class="container-fulid bg-overlay">
     <div class="text-center">
       <h1>จัดสเปคคอมของคุณเอง พร้อมบริการประกอบฟรี</h1>
-      <button type="button" class="btn btn-primary btn-lg">เริ่มจัดสเปค</button>
+      <button type="button" class="btn btn-primary btn-lg bg-info">เริ่มจัดสเปค</button>
     </div>
   </div>
 
-  <ul class="nav nav-pills nav-fill mt-1">
+  <ul class="nav nav-pills nav-fill bg-dark">
     <li class="nav-item">
-      <a href="#" class="nav-link active">สินค้าทั้งหมด</a>
+      <a href="#" class="nav-link bg-info text-light active ">สินค้าทั้งหมด</a>
     </li>
     <li class="nav-item">
-      <a href="/CPU" class="nav-link">CPU</a>
+      <a href="/CPU" class="nav-link bg-dark text-light">CPU</a>
     </li>
     <li class="nav-item">
-      <a href="/RAM" class="nav-link">RAM</a>
+      <a href="/RAM" class="nav-link bg-dark text-light">RAM</a>
     </li>
     <li class="nav-item">
-      <a href="/VGA" class="nav-link">VGA</a>
+      <a href="/VGA" class="nav-link bg-dark text-light">VGA</a>
     </li>
     <li class="nav-item">
-      <a href="MainBoard" class="nav-link">MainBoard</a>
+      <a href="MainBoard" class="nav-link bg-dark text-light">MainBoard</a>
     </li>
     <li class="nav-item">
-      <a href="/HDD-SSD" class="nav-link">HDD/SSD</a>
+      <a href="/HDD-SSD" class="nav-link bg-dark text-light">HDD/SSD</a>
     </li>
     <li class="nav-item">
-      <a href="/PSU" class="nav-link">PSU</a>
+      <a href="/PSU" class="nav-link bg-dark text-light">PSU</a>
     </li>
     <li class="nav-item">
-      <a href="/Case" class="nav-link">Case</a>
+      <a href="/Case" class="nav-link bg-dark text-light">Case</a>
     </li>
     <li class="nav-item">
-      <a href="/Cooler" class="nav-link">Cooler</a>
+      <a href="/Cooler" class="nav-link bg-dark text-light">Cooler</a>
     </li>
     <li class="nav-item">
-      <a href="/more" class="nav-link">อืนๆ</a>
+      <a href="/more" class="nav-link bg-dark text-light">อืนๆ</a>
     </li>
   </ul>
   <div class="container-fluid mt-4">
@@ -160,7 +160,7 @@ export default {
   },
 };
 </script>
-<style>
+<style >
 #productArea {
   cursor: pointer;
 }
@@ -174,4 +174,8 @@ export default {
   height: 300px;
   padding-top: 100px;
 }
+
 </style>
+
+
+
