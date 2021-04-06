@@ -1,12 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+
+    <link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
-<body>
-    <h1>TEST</h1>
+
+<body style="background-color:#D3D3D3;margin:auto">
+    <div id="wrapper">
+            <img src="images/loginpage.jpg" >
+            <a href="#">
+                <div id="box100">Havecomshop</div>
+            </a>
+            <div id="box101"><img src="images/login1.jpg"></div>
+            <div id="box102">Havecomshop</div>
+            
+            <div id="box103">อุปกรณ์คอมพิวเตอร์มากมาย</div>
+            <div id="box104">จัดสเปคด้วยตัวคุณเอง<br>
+                พร้อมบริการประกอบฟรี</div>
+            <div id="box105">Log in</div>
+            <div id="box106">
+
+                <input id="username" name="username" type="text" placeholder="Username" />
+            </div>
+            <div id="box107">
+                <input id="password" name="password" type="password" placeholder="Password" />
+            </div>
+            <div id="box108"><a href="">สมัครสมาชิก</a></div>
+            <section>
+                <button id="js-trigger-overlay" type="submit" onclick="login()"><a href="#">ลงชื่อเข้าใช้</button></a>
+            </section>
+    </div>
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function login() {
+        var username = document.querySelector("#username").value
+        var password = document.querySelector('#password').value
+        var err = document.querySelector('#err')
+        let apiURL = "http://localhost:3000/user/login";
+        let login = { username: username, password: password }
+        axios.post(apiURL, login).then((res) => {
+            if (res.data.error) {
+                alert(res.data.err)
+            } else {
+                localStorage.setItem("token", res.data.data);
+                window.location.replace("http://localhost:8080/")
+            }
+        })
+    }
+
+    /*axios
+        .post(apiURL, login)
+        .then((res) => {
+            if (res.data.error) {
+                this.error = res.data.error
+            } else {
+                localStorage.setItem("token", res.data.data);
+                window.location.replace("http://localhost:8080/")
+            }
+            console.log(res.data.data);
+
+        })
+        .catch((error) => {
+            console.log(error);
+        });*/
+</script>
+
 </html>

@@ -8,26 +8,22 @@ const product = require('../models/product');
 
 router.post('/addPD', async (req, res) => {
     //console.log(req.body)
-    let data = null
+    let data = {}
     try {
-        (req.body.url).split("/")
+        console.log(req.body.review)
+        data = {
+            PDname: req.body.name,
+            price: req.body.price,
+            count: req.body.count,
+            type: req.body.type,
+            img: req.body.url.split("/")[5]
+        }
         if (req.body.more) {
-            data = {
-                PDname: req.body.name,
-                price: req.body.price,
-                count: req.body.count,
-                img: req.body.url.split("/")[5],
-                type: req.body.type,
-                detail: req.body.more
-            }
-        } else {
-            data = {
-                PDname: req.body.name,
-                price: req.body.price,
-                count: req.body.count,
-                type: req.body.type,
-                img: req.body.url.split("/")[5]
-            }
+            data.detail = req.body.more
+        } 
+        if(req.body.review){
+            let IDreview = (req.body.review).split("/")
+            data.review = IDreview[IDreview.length-1]
         }
         //console.log(data)
         const response = await productModel.create(data)

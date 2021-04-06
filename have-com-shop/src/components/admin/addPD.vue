@@ -21,7 +21,8 @@
         
         v-model="product.url"
       />
-      <input type="submit" value="add product" />
+      <br>
+      <input type="text" placeholder="Review Link" v-model="product.review">
       <br>
       <select name="type" id="" v-model="product.type">
         <option value="CPU">CPU</option>
@@ -35,7 +36,9 @@
         <option value="more">อื่นๆ</option>
       </select>
       <input type="text" placeholder="(cpu,mainboard)socket" v-model="product.more.socket">
-      <input type="number" placeholder="(ram)DIMM" v-model="product.more.DIMM">
+      <input type="number" placeholder="(ram,,mainboard)DIMM" v-model="product.more.DIMM">
+      <br>
+      <input type="submit" value="add product" />
     </form>
   </div>
   <div><h1>{{error}}</h1></div>
@@ -52,7 +55,8 @@ export default {
         count: "",
         url: "",
         type:'',
-        more:{socket:'',DIMM:''}
+        more:{socket:'',DIMM:''},
+        review:''
       },
       error: ''
     };

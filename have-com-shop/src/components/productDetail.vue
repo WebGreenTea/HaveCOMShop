@@ -35,6 +35,17 @@
           </div>
         </div>
       </div>
+
+      <div v-if="review" class="mt-5">
+        <iframe
+          width="100%"
+          height="600px"
+          :src="'https://www.youtube.com/embed/' + review"
+          frameborder="5"
+          allowfullscreen
+          class="mb-5"
+        ></iframe>
+      </div>
     </div>
   </div>
 </template>
@@ -42,6 +53,7 @@
 import axios from "axios";
 import { MainURL } from "./js/MainUrl";
 import { BTCprice } from "./js/BTCprice";
+
 export default {
   data() {
     return {
@@ -52,6 +64,7 @@ export default {
       img: "https://drive.google.com/uc?export=view&id=",
       PDname: "",
       count: null,
+      review: null,
     };
   },
   async created() {
@@ -61,12 +74,15 @@ export default {
       this.img += res.data.img;
       this.PDname = res.data.PDname;
       this.count = res.data.count;
+      this.review = res.data.review;
     });
     this.btc = await BTCprice();
     //console.log(this.price);
     this.btcprice = (this.price / this.btc).toFixed(7);
   },
-  methods: {},
+  methods: {
+    
+  },
 };
 </script>
 <style >

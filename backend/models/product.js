@@ -26,6 +26,10 @@ const productSchema = new mongoose.Schema({
   detail:{
     type: Object,
     required: false
+  },
+  review:{
+    type: String,
+    require: false
   }
 })
 

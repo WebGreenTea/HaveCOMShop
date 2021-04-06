@@ -154,7 +154,7 @@ export default {
     const apiURL = MainURL +"/product/getPD";
     axios.get(apiURL).then((res) => {
       this.products = res.data;
-      console.log(res.data)
+      //console.log(res.data)
       //console.log(this.products[0].price)
     });
     //get BTC price
