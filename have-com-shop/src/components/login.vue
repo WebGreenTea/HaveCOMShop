@@ -34,6 +34,7 @@
 <script>
 import axios from "axios";
 export default {
+  emits:['set-nav'],
   data() {
     return {
       login: {
@@ -53,7 +54,8 @@ export default {
             this.error = res.data.error
           }else{
             localStorage.setItem("token", res.data.data);
-            this.$router.push("/");
+            //this.$router.push("/");
+            location.reload();
           }
           console.log(res.data.data);
           
@@ -64,12 +66,20 @@ export default {
     },
   },
   created() {
+    this.$emit('set-nav',false)
+
+
     let token = localStorage.getItem("token");
 
     if (token) {
       //alert('don\'t have token')
       this.$router.push("/");
     }
+
+    
+
+    
   },
+  
 };
 </script>

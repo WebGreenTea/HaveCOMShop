@@ -45,6 +45,105 @@ router.get('/getPD', async (req, res, next) => {
     })
 })
 
+router.get('/getPD/CPU', async (req, res, next) => {
+    await productModel.find({type: 'CPU'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/RAM', async (req, res, next) => {
+    await productModel.find({type: 'RAM'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/VGA', async (req, res, next) => {
+    await productModel.find({type: 'VGA'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/Mainboard', async (req, res, next) => {
+    await productModel.find({type: 'Mainboard'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/HDD-SSD', async (req, res, next) => {
+    await productModel.find({type: 'HDD-SSD'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/PSU', async (req, res, next) => {
+    await productModel.find({type: 'PSU'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/Case', async (req, res, next) => {
+    await productModel.find({type: 'Case'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/cooler', async (req, res, next) => {
+    await productModel.find({type: 'cooler'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
+router.get('/getPD/more', async (req, res, next) => {
+    await productModel.find({type: 'more'},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json(data)
+        }
+    })
+})
+
 router.get('/getPD/:id', async (req, res) => {
     let product
     try {

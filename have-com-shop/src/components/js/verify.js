@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 import {MainURL} from './MainUrl'
  function checklogin(){
     let token = localStorage.getItem("token");

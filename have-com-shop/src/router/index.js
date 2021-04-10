@@ -3,7 +3,6 @@ import mainPage from "@/components/mainPage.vue";
 import register from "@/components/register.vue";
 import login from "@/components/login.vue";
 import helloworld from "@/components/HelloWorld.vue";
-import CPU from "@/components/CPU.vue";
 import addPD from "@/components/admin/addPD.vue";
 import productDetail from "@/components/productDetail.vue";
 
@@ -27,11 +26,6 @@ const routes = [
     path: "/helloworld",
     name: "helloworld",
     component: helloworld,
-  },
-  {
-    path: "/CPU",
-    name: "CPU",
-    component: CPU,
   },
   {
     path: "/addPD",

@@ -15,6 +15,7 @@
       </ul>
     </div>
   </nav>
+  
   <div class="container mt-5">
     <div>
       <div id="form">
@@ -144,6 +145,7 @@ import axios from "axios";
 
 export default {
   name: "Register",
+  emits:['set-nav'],
   data() {
     return {
       user: {
@@ -202,6 +204,7 @@ export default {
     }
   },
   created() {
+    this.$emit('set-nav',false)
     let token = localStorage.getItem("token");
 
     if (token) {
@@ -209,6 +212,7 @@ export default {
       this.$router.push("/");
     }
   },
+  
 };
 </script>
 <style>
