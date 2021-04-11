@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
             username: user.username
         }, JWT_SECRET
         )
-        return res.json({status: 'ok',data: token})
+        return res.json({ status: 'ok', data: token })
     }
     else {
         //console.log('--------------------------------------------------------------')
@@ -43,20 +43,75 @@ router.post('/login', async (req, res) => {
     //console.log(user);
 })
 
-router.post('/verify-token',async(req,res) =>{
+router.post('/verify-token', async (req, res) => {
     const token = req.body.token
     //console.log(req.body)
-    try{
-        const user = jwt.verify(token,JWT_SECRET)
-        return res.json({username: (user.username),login: true})
-    }catch(e){
-        return res.json({username: "",login:false})
+    try {
+        const user = jwt.verify(token, JWT_SECRET)
+        return res.json({ username: (user.username), id: (user.id), login: true })
+    } catch (e) {
+        return res.json({ username: "", login: false })
     }
-    
-
-    //console.log(user)
-    
 })
+
+/*router.put('/addToCart', async (req, res, next) => {
+    let userID = req.body.userID
+    let productID = req.body.productID
+    let count = req.body.count
+    let userdata = await UserModel.find({ _id: userID, "cart.productID": productID }, (err) => {
+        if (err) {
+            return next(err)
+        }
+    })
+    let sizeObj = 0
+    for (let key in userdata) {
+        if (userdata.hasOwnProperty(key)) {
+            sizeObj++;
+        }
+    }
+
+    console.log(userdata)
+
+    if (!sizeObj) {
+
+        await UserModel.findOneAndUpdate({ "_id": userID }, {
+            $push: { "cart": { productID: productID, count: count } }
+        })
+    }else{
+        
+    } 
+    
+    /*else {
+        
+        let countloop = 0
+        let flag = true
+        for (let cart of userdata.cart) {
+
+            if (cart.productID == productID) {
+                userdata.cart[countloop].count += count
+                flag = false
+                break
+            }
+            countloop += 1
+        }
+        if (flag) {
+            
+            userdata.cart.push({ productID: productID, count: count })
+        }
+        await UserModel.findByIdAndUpdate(userID, {
+            cart: userdata.cart
+        }, (err) => {
+            if (err) {
+                return next(err)
+            }
+        })
+
+    }
+    res.json({ status: 'success' })
+
+
+
+})*/
 
 
 

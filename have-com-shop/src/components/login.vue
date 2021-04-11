@@ -34,7 +34,8 @@
 <script>
 import axios from "axios";
 export default {
-  emits:['set-nav'],
+  emits:['set-nav','update-cart'],
+  props:['Inlogin','userID'],
   data() {
     return {
       login: {

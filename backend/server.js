@@ -20,4 +20,7 @@ app.use('/user', UserRouter)
 const productRouter = require('./routes/product')
 app.use('/product',productRouter)
 
+const cartRouter = require('./routes/cart')
+app.use('/cart',cartRouter)
+
 app.listen(3000, () => console.log('Server Started'))

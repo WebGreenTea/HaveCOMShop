@@ -1,3 +1,5 @@
-let element = [4,5,6,7]
+var jsObjects = {
+    cart: [{name:'test'}]
+}
 
-console.log(element.length-1)
+ console.log(jsObjects)

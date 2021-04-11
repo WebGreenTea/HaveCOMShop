@@ -2,9 +2,8 @@ const express = require('express')
 const router = express.Router()
 const productModel = require('../models/product')
 const bodyPaser = require('body-parser')
-const md5 = require('md5');
-const jwt = require('jsonwebtoken');
-const product = require('../models/product');
+
+
 
 router.post('/addPD', async (req, res) => {
     //console.log(req.body)

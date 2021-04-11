@@ -104,7 +104,8 @@ import moreProduct from './productMenu/more.vue';
 //import allProduct from './productMenu/allProduct.vue'
 
 export default {
-  emits:['set-nav'],
+  emits:['set-nav','update-cart'],
+  props:['Inlogin','userID'],
   components: { 
     'all-product':allProduct ,
     'cpu-product':cpuProduct,
@@ -120,8 +121,6 @@ export default {
   data() {
     return {
       productMenu: 'all-product',
-      username: "",
-      Inlogin: false,
     };
   },
   methods: {

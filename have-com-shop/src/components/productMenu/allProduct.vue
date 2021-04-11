@@ -48,6 +48,7 @@ export default {
     await axios.get(apiURL).then((res) => {
       this.products = res.data;
     });
+    console.log(this.products)
     //get BTC price
     await axios.get("https://api.bitkub.com/api/market/ticker").then((res) => {
       this.btc = res.data.THB_BTC.last;

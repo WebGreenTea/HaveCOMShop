@@ -10,6 +10,22 @@
       <div class="collapse navbar-collapse topnav-right" id="navbarDropdown">
         <ul class="nav navbar-nav ml-auto" v-if="Inlogin">
           <li class="nav-item dropdown">
+            <router-link to="/cart" class="nav-link"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-cart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+                /></svg
+              >({{ cart }})</router-link
+            >
+          </li>
+          <li class="nav-item dropdown">
             <a
               href=""
               class="nav-link dropdown-toggle"
@@ -40,40 +56,57 @@
 
   <!-- Router view -->
 
-  <router-view  @set-nav="SetNav"></router-view>
+  <router-view
+    :Inlogin="Inlogin"
+    :userID="userID"
+    @set-nav="SetNav"
+    @update-cart="updateCart"
+  ></router-view>
 </template>
 <script>
-import axios from "axios"
-import {MainURL} from './MainUrl'
+import axios from "axios";
+import { MainURL } from "./MainUrl";
 
 export default {
   data() {
-    return{
+    return {
       nav: true,
       username: "",
       Inlogin: false,
-
-    }
+      userID: null,
+      cart: 0
+    };
   },
   methods: {
     Logout() {
       localStorage.removeItem("token");
-      this.$router.push("/login");
+      this.$router.push("/");
     },
-    SetNav(set){
-      this.nav = set
+    SetNav(set) {
+      this.nav = set;
     },
-  },
-  created(){
-    let apiURL = MainURL+"/user/verify-token";
-    let token = localStorage.getItem("token");
-    if(token){
-      let data = { token: token };
-      axios.post(apiURL, data).then((res) => {
-        this.username =  res.data.username
-        this.Inlogin = res.data.login
-      })
+    async updateCart(){
+      let apiURL = MainURL+`/cart/totalInCart/${this.userID}`
+      await axios.get(apiURL).then((res)=>{
+      this.cart = res.data.totalInCart
+    })
     }
-  }
+  },
+  async created() {
+    let apiURL = MainURL + "/user/verify-token";
+    let token = localStorage.getItem("token");
+    if (token) {
+      let data = { token: token };
+      await axios.post(apiURL, data).then((res) => {
+        this.username = res.data.username;
+        this.userID = res.data.id;
+        this.Inlogin = res.data.login;
+      });
+    }
+    apiURL = MainURL+`/cart/totalInCart/${this.userID}`
+    await axios.get(apiURL).then((res)=>{
+      this.cart = res.data.totalInCart
+    })
+  },
 };
 </script>
