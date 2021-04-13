@@ -142,6 +142,7 @@
 
 <script>
 import axios from "axios";
+import { MainURL } from "./js/MainUrl";
 
 export default {
   name: "Register",
@@ -185,7 +186,7 @@ export default {
       }
     },
     handleSubmit() {
-      let apiURL = "http://localhost:3000/user/register";
+      let apiURL = MainURL+"/user/register";
       axios
         .post(apiURL, this.user)
         .then((res) => {

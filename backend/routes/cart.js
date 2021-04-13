@@ -29,6 +29,16 @@ router.put('/addToCart', async (req, res, next) => {
     return res.json({success:true})
 })
 
+router.put('/updateCount/:id',async(req,res,next)=>{
+    await cartModel.findByIdAndUpdate(req.params.id,{count:req.body.count},(err,data)=>{
+        if(err){
+            return next(err)
+        }else{
+            res.json({success:true})
+        }
+    })
+})
+
 router.get('/totalInCart/:id', async (req, res, next) => {
     await cartModel.find({userID:req.params.id},(err,data)=>{
         if(err){
@@ -49,6 +59,16 @@ router.get('/list/:id', async (req, res, next) => {
             return next(err)
         }else{
             return res.json(data)
+        }
+    })
+})
+
+router.delete('/delFromCart/:id', async (req,res,next) =>{
+    await cartModel.findByIdAndDelete(req.params.id,(err,data)=>{
+        if(err){
+            return next(err)
+        }else{
+            res.json(data)
         }
     })
 })

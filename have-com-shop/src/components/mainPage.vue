@@ -105,7 +105,7 @@ import moreProduct from './productMenu/more.vue';
 
 export default {
   emits:['set-nav','update-cart'],
-  props:['Inlogin','userID'],
+  props:['Inlogin','userID','cart'],
   components: { 
     'all-product':allProduct ,
     'cpu-product':cpuProduct,

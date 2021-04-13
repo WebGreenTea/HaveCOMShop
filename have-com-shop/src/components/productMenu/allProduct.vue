@@ -8,7 +8,7 @@
         @click="viewProduct(product._id)"
       >
         <div class="card" id="productArea">
-          <img :src="prefixIMGurl + product.img" alt="" />
+          <img :src="product.img" alt="" />
           <div class="card-body" v-if="product.count != 0">
             <h6 class="card-title">{{ product.PDname }}</h6>
             <h5 class="card-text" id="price">
@@ -32,14 +32,13 @@
   </div>
 </template>
 <script>
-import { MainURL } from "../../MainUrl.js";
+import { MainURL } from "../js/MainUrl";
 import axios from "axios";
 export default {
   data() {
     return {
       btc: null,
       products: null,
-      prefixIMGurl: "https://drive.google.com/uc?export=view&id=",
     };
   },
   async created() {
@@ -48,7 +47,7 @@ export default {
     await axios.get(apiURL).then((res) => {
       this.products = res.data;
     });
-    console.log(this.products)
+    
     //get BTC price
     await axios.get("https://api.bitkub.com/api/market/ticker").then((res) => {
       this.btc = res.data.THB_BTC.last;

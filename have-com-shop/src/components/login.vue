@@ -33,6 +33,9 @@
 </template>
 <script>
 import axios from "axios";
+import { MainURL } from "./js/MainUrl";
+
+
 export default {
   emits:['set-nav','update-cart'],
   props:['Inlogin','userID'],
@@ -47,7 +50,7 @@ export default {
   },
   methods: {
     handleLogin() {
-      let apiURL = "http://localhost:3000/user/login";
+      let apiURL = MainURL+"/user/login";
       axios
         .post(apiURL, this.login)
         .then((res) => {

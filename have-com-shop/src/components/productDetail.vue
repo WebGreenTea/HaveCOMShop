@@ -63,7 +63,7 @@ export default {
       id: this.$route.params.id,
       price: 0,
       btcprice: null,
-      img: "https://drive.google.com/uc?export=view&id=",
+      img: null,
       PDname: "",
       count: null,
       review: null,
@@ -73,7 +73,7 @@ export default {
     const apiURL = MainURL + `/product/getPD/${this.id}`;
     await axios.get(apiURL).then((res) => {
       this.price = res.data.price;
-      this.img += res.data.img;
+      this.img = res.data.img;
       this.PDname = res.data.PDname;
       this.count = res.data.count;
       this.review = res.data.review;

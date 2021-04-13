@@ -59,14 +59,15 @@
   <router-view
     :Inlogin="Inlogin"
     :userID="userID"
+    :cart="cart"
     @set-nav="SetNav"
     @update-cart="updateCart"
   ></router-view>
 </template>
 <script>
 import axios from "axios";
-import { MainURL } from "./MainUrl";
-
+import { MainURL } from "./components/js/MainUrl.js";
+import {checklogin} from "../src/components/js/verify"
 export default {
   data() {
     return {
@@ -93,7 +94,11 @@ export default {
     }
   },
   async created() {
-    let apiURL = MainURL + "/user/verify-token";
+    const loingdata = await checklogin()
+    this.username = loingdata.username
+    this.userID = loingdata.id
+    this.Inlogin = loingdata.login
+    /*let apiURL = MainURL + "/user/verify-token";
     let token = localStorage.getItem("token");
     if (token) {
       let data = { token: token };
@@ -102,8 +107,10 @@ export default {
         this.userID = res.data.id;
         this.Inlogin = res.data.login;
       });
-    }
-    apiURL = MainURL+`/cart/totalInCart/${this.userID}`
+    }*/
+
+    //get total product in cart
+    let apiURL = MainURL+`/cart/totalInCart/${this.userID}`
     await axios.get(apiURL).then((res)=>{
       this.cart = res.data.totalInCart
     })
