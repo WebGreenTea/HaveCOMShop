@@ -1,8 +1,8 @@
 
 <template>
   <!-- Nav bar -->
-  <nav
-    class="navbar navbar-dark bg-primary justify-content-between flex-nowrap flex-row"
+  <!--<nav
+    class="navbar navbar-dark bg-primary justify-content-center flex-nowrap flex-row"
   >
     <div class="container">
       <router-link to="/" class="navbar-brand float-left"
@@ -14,8 +14,184 @@
         </li>
       </ul>
     </div>
-  </nav>
+  </nav>-->
+<div class="container-fulid  pt-5 pb-5">
+  <div class="container pt-5 pl-5 pr-5 bg-dark text-light  border-custom">
+    <div class="d-flex justify-content-center mb-5 bg-info text-light rounded-pill">
+      <h1>HaveCOM SHOP</h1>
+    </div>
+    <form @submit.prevent="handleSubmit">
+      <div class="form-group ml-5 mr-5 pl-5 pr-5">
+        <div class="text-warning"><h3>{{ errorstatus }}</h3></div>
+      </div>
+      
+      <div class="form-group ml-5 mr-5 pl-5 pr-5">
+        <label for="email" class="font-18">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          @click="disableErr"
+          v-model="user.email"
+          placeholder="email"
+          maxlength="40"
+          id="email"
+        />
+      </div>
+      <div class="form-group ml-5 mr-5 pl-5 pr-5">
+        <label for="username" class="font-18">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          @click="disableErr"
+          v-model="user.username"
+          placeholder="username"
+          maxlength="15"
+          required
+        />
+      </div>
+      <div class="row">
+        <div class="col-sm form-group pl-5 pr-3">
+          <label for="name" class="font-18">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            v-model="user.first_name"
+            placeholder="ชื่อ"
+            maxlength="35"
+            required
+          />
+        </div>
+        <div class="col-sm form-group pl-3 pr-5">
+          <label for="lastname" class="font-18">Last name</label>
+          <input
+            type="text"
+            id="lastname"
+            class="form-control"
+            v-model="user.last_name"
+            placeholder="นามสกุล"
+            maxlength="35"
+            required
+          />
+        </div>
+      </div>
+      <div class="form-group ml-5 mr-5 pl-5 pr-5">
+        <label for="phone" class="font-18">Phone number</label>
+        <input
+          type="number"
+          id="phone"
+          class="form-control"
+          v-model="user.phone"
+          placeholder="เบอร์โทรศัพท์"
+          maxlength="10"
+          min="0"
+          required
+        />
+      </div>
+      <div class="form-group ml-5 mr-5 pl-5 pr-5 mt-5">
+        <h4>ที่อยู่สำหรับการจัดส่ง</h4>
+        <div class="border border-3 rounded-3 d-flex justify-content-center">
+          <div class="form-group ml-5 mr-5 pl-5 pr-5 mt-2">
+            <div class="mt-3">
+              <input
+              type="text"
+              required
+              placeholder="บ้านเลขที่"
+              v-model="user.address.number"
+            />
+            <input
+              class="ml-4"
+              type="text"
+              placeholder="หมู่"
+              v-model="user.address.moo"
+            />
+            <input
+              class="ml-4"
+              type="text"
+              placeholder="ถนน"
+              v-model="user.address.road"
+            />
+            </div>
+
+            <div class="mt-3">
+              <input
+              type="text"
+              required
+              placeholder="ตำบล"
+              v-model="user.address.tumbon"
+            />
+            <input
+              class="ml-4"
+              type="text"
+              required
+              placeholder="อำเภอ"
+              v-model="user.address.aumper"
+            />
+            <input
+              class="ml-4"
+              type="text"
+              required
+              placeholder="จังหวัด"
+              v-model="user.address.city"
+            />
+            </div>
+            
+            <div class="mt-3">
+              <input
+              type="number"
+              required
+              placeholder="รหัสไปรษณีย์"
+              v-model="user.address.code"
+            />
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-sm form-group pl-5 pr-3">
+            <label class="font-18">รหัสผ่าน</label>
+            <input
+            class="form-control"
+            v-on:keyup="passchek"
+            type="password"
+            pattern=".{8,}"
+            title="8 characters minimum"
+            v-model="user.password"
+            placeholder="รหัสผ่าน"
+            maxlength="35"
+            required
+          />
+          </div>
+          <div class="col-sm form-group pl-5 pr-3">
+            <label class="font-18">ยืนยันรหัสผ่าน</label>
+            <input
+            class="form-control"
+            v-on:keyup="passchek"
+            v-model="password"
+            type="password"
+            placeholder="ยืนยันรหัสผ่าน"
+            maxlength="35"
+            required
+          /><div class="errpwd text-warning"></div>
+          </div>
+        </div>
+        
+
+        <div class="d-flex justify-content-center mt-2 pb-5">
+          <button class="btn btn-info" type="submit" name="userReg" disabled>Register</button>
+        </div>
+        
+
+       
+
+        
+      </div>
+    </form>
+  </div>
+</div>
   
+<!--
   <div class="container mt-5">
     <div>
       <div id="form">
@@ -102,16 +278,7 @@
             />
           </fieldset>
 
-          <!--<label>ที่อยู่(สำหรับการจัดส่งสินค้า)</label>
-        <textarea
-          placeholder="ที่อยู่(สำหรับการจัดส่งสินค้า)"
-          v-model="user.address"
-          cols="100"
-          rows="4"
-          maxlength="300"
-          required
-        ></textarea>
-        -->
+         
           <label>รหัสผ่าน</label>
           <input
             v-on:keyup="passchek"
@@ -138,6 +305,7 @@
       </div>
     </div>
   </div>
+  -->
 </template>
 
 <script>
@@ -146,7 +314,7 @@ import { MainURL } from "./js/MainUrl";
 
 export default {
   name: "Register",
-  emits:['set-nav'],
+  emits: ["set-nav"],
   data() {
     return {
       user: {
@@ -186,7 +354,7 @@ export default {
       }
     },
     handleSubmit() {
-      let apiURL = MainURL+"/user/register";
+      let apiURL = MainURL + "/user/register";
       axios
         .post(apiURL, this.user)
         .then((res) => {
@@ -200,12 +368,12 @@ export default {
           console.log(error);
         });
     },
-    disableErr(){
-      this.errorstatus = ""
-    }
+    disableErr() {
+      this.errorstatus = "";
+    },
   },
   created() {
-    this.$emit('set-nav',false)
+    this.$emit("set-nav", false);
     let token = localStorage.getItem("token");
 
     if (token) {
@@ -213,9 +381,31 @@ export default {
       this.$router.push("/");
     }
   },
-  
 };
 </script>
 <style>
 @import "./css/registerCSS.css";
+
+.font-25 {
+  font-size: 25px;
+}
+.font-18 {
+  font-size: 18px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.border-custom{
+  border-radius: 20px;
+}
+.register-bg{
+  background-color: dimgrey;
+  /*background: url("https://drive.google.com/uc?export=view&id=1mURFFMM8BbMcO9ipZDQ8oSUSgiBWv0Qb");*/
+  background-size: cover;
+  background-position: center center;
+}
 </style>

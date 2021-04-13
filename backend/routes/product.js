@@ -9,13 +9,13 @@ router.post('/addPD', async (req, res) => {
     //console.log(req.body)
     let data = {}
     try {
-        console.log(req.body.review)
+        //console.log(req.body.review)
         data = {
             PDname: req.body.name,
             price: req.body.price,
             count: req.body.count,
             type: req.body.type,
-            img: req.body.url.split("/")[5]
+            img: req.body.url
         }
         if (req.body.more) {
             data.detail = req.body.more
@@ -29,6 +29,7 @@ router.post('/addPD', async (req, res) => {
         //console.log(response)
         res.json({ status: 'success' })
     } catch (error) {
+        console.log(error)
         res.json({ status: 'error' })
     }
 })

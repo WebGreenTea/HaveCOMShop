@@ -1,5 +1,5 @@
 <template>
-  <!-- Nav bar -->
+  <!-- Nav bar
   <nav
     class="navbar navbar-dark bg-primary justify-content-between flex-nowrap flex-row"
   >
@@ -13,9 +13,46 @@
         </li>
       </ul>
     </div>
-  </nav>
-  <div class="container mt-5">
-    <div><p>{{error}}</p></div>
+  </nav> -->
+
+  <div class="container-fulid pt-5 pb-5">
+    <div class="container pt-5 pl-5 pr-5 bg-dark text-light border-custom">
+      <div
+        class="d-flex justify-content-center mb-5 bg-info text-light rounded-pill"
+      >
+        <h1>HaveCOM SHOP</h1>
+      </div>
+      <form @submit.prevent="handleLogin">
+        <div class="form-group ml-5 mr-5 pl-5 pr-5">
+          <label for="username" class="font-18">Username</label>
+          <input
+            class="form-control"
+            type="text"
+            id="username"
+            v-model="login.username"
+          />
+        </div>
+
+        <div class="form-group ml-5 mr-5 pl-5 pr-5">
+          <label for="password" class="font-18">Password</label>
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            v-model="login.password"
+          />
+        </div>
+        <div class="d-flex justify-content-center mt-4 pb-4">
+          <button class="btn btn-info" type="submit" name="login">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--<div class="container mt-5">
+    <div>
+      <p>{{ error }}</p>
+    </div>
     <form @submit.prevent="handleLogin">
       <input
         type="text"
@@ -29,16 +66,15 @@
       /><br />
       <input type="submit" value="Login" />
     </form>
-  </div>
+  </div>-->
 </template>
 <script>
 import axios from "axios";
 import { MainURL } from "./js/MainUrl";
 
-
 export default {
-  emits:['set-nav','update-cart'],
-  props:['Inlogin','userID'],
+  emits: ["set-nav", "update-cart"],
+  props: ["Inlogin", "userID"],
   data() {
     return {
       login: {
@@ -50,19 +86,18 @@ export default {
   },
   methods: {
     handleLogin() {
-      let apiURL = MainURL+"/user/login";
+      let apiURL = MainURL + "/user/login";
       axios
         .post(apiURL, this.login)
         .then((res) => {
-          if(res.data.error){
-            this.error = res.data.error
-          }else{
+          if (res.data.error) {
+            this.error = res.data.error;
+          } else {
             localStorage.setItem("token", res.data.data);
             //this.$router.push("/");
             location.reload();
           }
           console.log(res.data.data);
-          
         })
         .catch((error) => {
           console.log(error);
@@ -70,8 +105,7 @@ export default {
     },
   },
   created() {
-    this.$emit('set-nav',false)
-
+    this.$emit("set-nav", false);
 
     let token = localStorage.getItem("token");
 
@@ -79,11 +113,6 @@ export default {
       //alert('don\'t have token')
       this.$router.push("/");
     }
-
-    
-
-    
   },
-  
 };
 </script>

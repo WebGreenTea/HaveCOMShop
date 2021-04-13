@@ -23,4 +23,7 @@ app.use('/product',productRouter)
 const cartRouter = require('./routes/cart')
 app.use('/cart',cartRouter)
 
+const buy_historyRouter = require('./routes/buy_history')
+app.use('/buy_history',buy_historyRouter)
+
 app.listen(3000, () => console.log('Server Started'))

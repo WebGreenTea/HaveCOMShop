@@ -9,6 +9,9 @@ const JWT_SECRET = "kjhkjh*&^lkhlkh)(*)KLJHKHJG^%$kuhsdflsdfshbss"
 // Creating one
 router.post('/register', async (req, res) => {
     //console.log(req.body)
+    /*if(req.body.password.length < 8){
+        return res.json({ msg: '' })
+    }*/
     req.body.password = md5(req.body.password)
     //console.log(req.body.password)
 

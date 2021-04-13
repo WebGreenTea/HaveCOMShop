@@ -110,89 +110,96 @@
       </div>
     </div>
     <div class="container mt-5">
-    <div class="d-flex justify-content-center">
-      <p>ต้องการชำระเงินด้วย</p>
-    </div>
-    <div class="d-flex justify-content-center">
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="PaymentType"
-          id="PaymentType"
-          checked
-          value="THB"
-          v-model="paymentType"
-        />
-
-        <label class="form-check-label" for="PaymentType"> เงินบาท </label>
+      <div class="d-flex justify-content-center">
+        <p>ต้องการชำระเงินด้วย</p>
       </div>
-    </div>
-    <div class="d-flex justify-content-center">
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="PaymentType"
-          id="PaymentType2"
-          value="BTC"
-          v-model="paymentType"
-        />
-        <label class="form-check-label" for="PaymentType2"> Bitcoin </label>
-      </div>
-    </div>
-  </div>
-
-  <div
-    class="container d-flex justify-content-center mt-4"
-    v-if="paymentType == 'THB'"
-  >
-    <div>
-      <h2>
-        ราคารวมสินค้าที่ต้องการชำระ {{ totalPriceOfSelect.toLocaleString() }}฿
-      </h2>
-      <div v-if="totalPriceOfSelect">
-        <div class="d-flex justify-content-center mt-3">
-          <img
-            src="https://drive.google.com/uc?export=view&id=1mMBmVCRDmlRmyt9g7guiQRzyA8pw6vXO"
-            style="max-width: 200px"
+      <div class="d-flex justify-content-center">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="PaymentType"
+            id="PaymentType"
+            checked
+            value="THB"
+            v-model="paymentType"
           />
+
+          <label class="form-check-label" for="PaymentType"> เงินบาท </label>
         </div>
-        <div class="d-flex justify-content-center">
-          <img :src="promptpayQRlink" />
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="PaymentType"
+            id="PaymentType2"
+            value="BTC"
+            v-model="paymentType"
+          />
+          <label class="form-check-label" for="PaymentType2"> Bitcoin </label>
         </div>
       </div>
     </div>
-  </div>
 
-  <div v-else class="container d-flex justify-content-center mt-4" >
-    <div>
-      <h2>
-        ราคารวมสินค้าที่ต้องการชำระ
-        {{ totalPriceOfSelectbtc }}
-        <img
-          src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m"
-          style="max-width: 30px"
-        />
-      </h2>
-      <div class="d-flex justify-content-center mt-3" v-if="!(totalPriceOfSelectbtc == 0)">
-        <img :src="BtcQRlink" />
+    <div
+      class="container d-flex justify-content-center mt-4"
+      v-if="paymentType == 'THB'"
+    >
+      <div>
+        <h2>
+          ราคารวมสินค้าที่ต้องการชำระ {{ totalPriceOfSelect.toLocaleString() }}฿
+        </h2>
+        <div v-if="totalPriceOfSelect">
+          <div class="d-flex justify-content-center mt-3">
+            <img
+              src="https://drive.google.com/uc?export=view&id=1mMBmVCRDmlRmyt9g7guiQRzyA8pw6vXO"
+              style="max-width: 200px"
+            />
+          </div>
+          <div class="d-flex justify-content-center">
+            <img :src="promptpayQRlink" />
+          </div>
+          <div class="container d-flex justify-content-center mt-2 mb-5">
+          <button class="btn btn-success" @click="confirmPayment">
+            ยืนยันการชำระเงิน
+          </button>
+        </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="container d-flex justify-content-center mt-2 mb-5">
-    <button class="btn btn-success" @click="confirmPayment">ยืนยันการชำระเงิน</button>
-  </div>
-  
+    <div v-else class="container d-flex justify-content-center mt-4">
+      <div>
+        <h2>
+          ราคารวมสินค้าที่ต้องการชำระ
+          {{ totalPriceOfSelectbtc }}
+          <img
+            src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m"
+            style="max-width: 30px"
+          />
+        </h2>
+        <div v-if="!(totalPriceOfSelectbtc == 0)">
+          <div
+          class="d-flex justify-content-center mt-3"
+          
+        >
+          <img :src="BtcQRlink" />
+        </div>
+        <div class="container d-flex justify-content-center mt-2 mb-5">
+          <button class="btn btn-success" @click="confirmPayment">
+            ยืนยันการชำระเงิน
+          </button>
+        </div>
+        </div>
+        
+      </div>
+    </div>
   </div>
   <div class="container d-flex justify-content-center mt-5" v-else>
     <h2 class="mt-5 font-weight-bold text-info">ยังไม่มีสินค้าในรถเข็น</h2>
   </div>
-
-  
-
-
 </template>
 
 <script>
@@ -332,8 +339,49 @@ export default {
       this.promptpayQRlink = `https://qrmango.com/promptpay/qr?pp_no=${promPayID}&amount=${this.totalPriceOfSelect}&size=300`;
       this.BtcQRlink = `https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&amount=${this.totalPriceOfSelectbtc}&address=${BTCaddress}`;
     },
-    confirmPayment() {
+    async confirmPayment() {
+      let total = 0
+      if(this.paymentType == 'THB'){
+        total = this.totalPriceOfSelect
+      }else{
+        total = this.totalPriceOfSelectbtc
+      }
+
+      let detail = []
+
+      for (let i of this.Listcheckeds){
+        let objDetail = {
+          productID:this.CartProductList[i].ProductID,
+          count:this.CartProductList[i].count,
+          price:this.CartProductList[i].price
+        }
+        detail.push(objDetail)
+      }
+
+      let apiUrl = MainURL+`/buy_history/addHistory/`;
+      let history = {}
+      history.userID = this.IDuser
+      history.detail = detail
+      history.total = total
+      history.paymentType = this.paymentType
+
+      await axios.post(apiUrl,history).then(res =>{
+        console.log(res.data.msg)
+      }).catch(err =>{
+        console.log(err)
+      })
+
       
+      for (let i of this.Listcheckeds){
+        apiUrl = MainURL+`/cart/delFromCart/${this.CartProductList[i].IDinDBcart}/`
+        await axios.delete(apiUrl).then(() =>{
+          this.$emit("update-cart");
+        }).catch(err =>{
+          console.log(err)
+        })
+      }
+      alert('การสั่งซื้อเสร็จสิ้น')
+      this.$router.push("/");
     },
   },
 };

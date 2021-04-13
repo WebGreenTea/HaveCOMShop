@@ -21,7 +21,9 @@
             <br />
             <div v-if="count != 0">
               <button class="btn btn-info mr-3 ml-3">ซื้อสินค้า</button>
-              <button class="btn btn-secondary" @click="addtoCart">เพิ่มไปยังรถเข็น</button>
+              <button class="btn btn-secondary" @click="addtoCart">
+                เพิ่มไปยังรถเข็น
+              </button>
             </div>
             <div v-else>
               <h2 class="display-5 text-danger ml-5">สินค้าหมด</h2>
@@ -55,8 +57,8 @@ import { MainURL } from "./js/MainUrl";
 import { BTCprice } from "./js/BTCprice";
 
 export default {
-  props:['Inlogin','userID'],
-  emits:['update-cart'],
+  props: ["Inlogin", "userID"],
+  emits: ["update-cart"],
   data() {
     return {
       btc: null,
@@ -83,24 +85,26 @@ export default {
     this.btcprice = (this.price / this.btc).toFixed(7);
   },
   methods: {
-    async addtoCart(){
-      if(!this.Inlogin){
+    async addtoCart() {
+      if (!this.Inlogin) {
+        console.log("test");
         this.$router.push("/login");
+      } else {
+        const apiURL = MainURL + `/cart/addToCart/`;
+        await axios
+          .put(apiURL, {
+            productID: this.id,
+            userID: this.userID,
+            count: 1,
+          })
+          .then((res) => {
+            if (res.data.success) {
+              this.$emit("update-cart");
+            }
+          });
       }
-      const apiURL = MainURL + `/cart/addToCart/`
-      await axios.put(apiURL,{
-        productID:this.id,
-        userID:this.userID,
-        count:1
-        }).then(res => {
-          
-          if(res.data.success){
-            this.$emit('update-cart')
-          }
-        })
-    }
+    },
   },
-  
 };
 </script>
 <style >
