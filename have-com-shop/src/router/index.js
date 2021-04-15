@@ -5,7 +5,9 @@ import login from "@/components/login.vue";
 import helloworld from "@/components/HelloWorld.vue";
 import addPD from "@/components/admin/addPD.vue";
 import productDetail from "@/components/productDetail.vue";
-import cart from "../components/cart.vue"
+import cart from "../components/cart.vue";
+import computerDIY from "../components/computerDIY.vue";
+
 
 const routes = [
   {
@@ -42,6 +44,11 @@ const routes = [
     path: "/cart",
     name: "cart",
     component: cart,
+  },
+  {
+    path: "/computerDIY",
+    name: "computerDIY",
+    component: computerDIY,
   },
 
 ];

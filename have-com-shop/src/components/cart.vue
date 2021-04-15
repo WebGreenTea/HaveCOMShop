@@ -387,9 +387,6 @@ export default {
 };
 </script>
 <style >
-div {
-  /*border: 1px solid red;*/
-}
 .checkbox-lg {
   width: 2rem;
   height: 2rem;

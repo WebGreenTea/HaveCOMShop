@@ -45,6 +45,7 @@
 </template>
 <script>
 import axios from "axios";
+import { MainURL } from "../js/MainUrl";
 
 export default {
   data() {
@@ -63,7 +64,7 @@ export default {
   },
   methods: {
     newPD() {
-      let apiURL = "http://localhost:3000/product/addPD";
+      let apiURL = MainURL + "/product/addPD";
       axios
         .post(apiURL, this.product)
         .then((res) => {
