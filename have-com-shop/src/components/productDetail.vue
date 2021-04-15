@@ -78,7 +78,9 @@ export default {
       this.img = res.data.img;
       this.PDname = res.data.PDname;
       this.count = res.data.count;
-      this.review = res.data.review;
+
+      let review = res.data.review.split("/")
+      this.review = review[review.length-1]
     });
     this.btc = await BTCprice();
     //console.log(this.price);

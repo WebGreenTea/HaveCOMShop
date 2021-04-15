@@ -21,8 +21,8 @@ router.post('/addPD', async (req, res) => {
             data.detail = req.body.more
         } 
         if(req.body.review){
-            let IDreview = (req.body.review).split("/")
-            data.review = IDreview[IDreview.length-1]
+            //let IDreview = (req.body.review).split("/")
+            data.review = req.body.review
         }
         //console.log(data)
         const response = await productModel.create(data)
@@ -158,6 +158,26 @@ router.get('/getPD/:id', async (req, res) => {
 
     return res.json(product)
     
+})
+
+router.put('/updateCount/:id', async (req, res, next) => {
+    let product = await productModel.findById(req.params.id,(err) =>{
+        if(err){
+            return next(error)
+        }
+    })
+    let count = product.count;
+    
+
+    count += req.body.count;
+    await productModel.findByIdAndUpdate(req.params.id,{count: count},(error, data) => {
+        if (error) {
+            return next(error)
+        }
+        else {
+            res.json({name: data.PDname,count:count})
+        }
+    })
 })
 
 module.exports = router

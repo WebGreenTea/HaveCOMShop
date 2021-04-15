@@ -19,10 +19,18 @@ const buy_historySchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
+  build: {
+    type: Boolean,
+    required: false,
+  },
   total: {
     type: Number,
     required: true,
-  }
+  },
+  address:{
+    type: String,
+    required:true,
+  },
 
 })
 

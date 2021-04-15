@@ -32,7 +32,7 @@
         <option value="HDD-SSD">HDD-SSD</option>
         <option value="PSU">PSU</option>
         <option value="Case">Case</option>
-        <option value="Cooler">Cooler</option>
+        <option value="cooler">Cooler</option>
         <option value="more">อื่นๆ</option>
       </select>
       <input type="text" placeholder="(cpu,mainboard)socket" v-model="product.more.socket">

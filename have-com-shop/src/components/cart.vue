@@ -109,91 +109,103 @@
         </div>
       </div>
     </div>
-    <div class="container mt-5">
-      <div class="d-flex justify-content-center">
-        <p>ต้องการชำระเงินด้วย</p>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="PaymentType"
-            id="PaymentType"
-            checked
-            value="THB"
-            v-model="paymentType"
-          />
+    <!--------------------------------->
+    <div class="row mt-3">
+      <div class="col-md-3">
+        <div class="d-flex justify-content-center">
+          <p>ต้องการชำระเงินด้วย</p>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="PaymentType"
+              id="PaymentType"
+              checked
+              value="THB"
+              v-model="paymentType"
+            />
 
-          <label class="form-check-label" for="PaymentType"> เงินบาท </label>
+            <label class="form-check-label" for="PaymentType"> เงินบาท </label>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="PaymentType"
+              id="PaymentType2"
+              value="BTC"
+              v-model="paymentType"
+            />
+            <label class="form-check-label" for="PaymentType2"> Bitcoin </label>
+          </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="PaymentType"
-            id="PaymentType2"
-            value="BTC"
-            v-model="paymentType"
-          />
-          <label class="form-check-label" for="PaymentType2"> Bitcoin </label>
+      <div class="col-md-4">
+        <div class="d-flex justify-content-center" v-if="paymentType == 'THB'">
+          <h3>
+            ราคารวมสินค้าที่ต้องการชำระ
+            {{ totalPriceOfSelect.toLocaleString() }}฿
+          </h3>
+        </div>
+        <div class="d-flex justify-content-center" v-else>
+          <h3>
+            ราคารวมสินค้าที่ต้องการชำระ
+            {{ totalPriceOfSelectbtc }}
+            <img
+              src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m"
+              style="max-width: 30px"
+            />
+          </h3>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="border">
+          <div class="d-flex justify-content-center">
+            <h4>ที่อยู่ในการจัดส่ง</h4>
+          </div>
+          <div>
+            <p>
+              {{ address }}
+            </p>
+            <button class="btn btn-info float-right">เปลี่ยนที่อยู่</button>
+          </div>
         </div>
       </div>
     </div>
+    <!--------------------------------->
 
     <div
-      class="container d-flex justify-content-center mt-4"
-      v-if="paymentType == 'THB'"
+      class="container d-flex justify-content-center"
+      v-if="totalPriceOfSelect"
     >
-      <div>
-        <h2>
-          ราคารวมสินค้าที่ต้องการชำระ {{ totalPriceOfSelect.toLocaleString() }}฿
-        </h2>
-        <div v-if="totalPriceOfSelect">
-          <div class="d-flex justify-content-center mt-3">
-            <img
-              src="https://drive.google.com/uc?export=view&id=1mMBmVCRDmlRmyt9g7guiQRzyA8pw6vXO"
-              style="max-width: 200px"
-            />
-          </div>
-          <div class="d-flex justify-content-center">
-            <img :src="promptpayQRlink" />
-          </div>
-          <div class="container d-flex justify-content-center mt-2 mb-5">
-          <button class="btn btn-success" @click="confirmPayment">
-            ยืนยันการชำระเงิน
-          </button>
+      <div v-if="paymentType == 'THB'">
+        <div class="d-flex justify-content-center mt-3">
+          <img
+            src="https://drive.google.com/uc?export=view&id=1mMBmVCRDmlRmyt9g7guiQRzyA8pw6vXO"
+            style="max-width: 200px"
+          />
         </div>
+        <div class="d-flex justify-content-center">
+          <img :src="promptpayQRlink" />
+        </div>
+      </div>
+      <div v-else class="container d-flex justify-content-center">
+        <div v-if="!(totalPriceOfSelectbtc == 0)">
+          <div class="d-flex justify-content-center mt-3">
+            <img :src="BtcQRlink" />
+          </div>
         </div>
       </div>
     </div>
-
-    <div v-else class="container d-flex justify-content-center mt-4">
-      <div>
-        <h2>
-          ราคารวมสินค้าที่ต้องการชำระ
-          {{ totalPriceOfSelectbtc }}
-          <img
-            src="https://drive.google.com/uc?export=view&id=1ldi5YT6pk21W3SBj1dr0zggtlwPcKV3m"
-            style="max-width: 30px"
-          />
-        </h2>
-        <div v-if="!(totalPriceOfSelectbtc == 0)">
-          <div
-          class="d-flex justify-content-center mt-3"
-          
-        >
-          <img :src="BtcQRlink" />
-        </div>
-        <div class="container d-flex justify-content-center mt-2 mb-5">
-          <button class="btn btn-success" @click="confirmPayment">
-            ยืนยันการชำระเงิน
-          </button>
-        </div>
-        </div>
-        
+    <div v-if="totalPriceOfSelect">
+      <div class="container d-flex justify-content-center mt-2 mb-5">
+        <button class="btn btn-success" @click="confirmPayment">
+          ยืนยันการชำระเงิน
+        </button>
       </div>
     </div>
   </div>
@@ -215,9 +227,10 @@ export default {
   emits: ["set-nav", "update-cart"],
   data() {
     return {
-      username: "",
-      IDuser: "",
+      //username: "",
+      //IDuser: "",
       login: false,
+      address: "",
       CartProductList: [],
       lawCart: [],
       btc: null,
@@ -231,11 +244,40 @@ export default {
   },
   async created() {
     const loingdata = await checklogin();
-    this.username = loingdata.username;
-    this.IDuser = loingdata.id;
     this.login = loingdata.login;
+    if (!this.login) {
+      this.$router.push("/login");
+    }
 
-    let apiURL = MainURL + `/cart/list/${this.IDuser}`;
+    //get address
+    await axios
+      .get(MainURL + `/user/getAddress/${this.userID}`)
+      .then((res) => {
+        this.address += res.data.fullname + " " + res.data.number;
+        if (res.data.road !== "") {
+          this.address += res.data.road;
+        }
+        if (res.data.moo !== "") {
+          this.address += res.data.moo;
+        }
+        this.address +=
+          " ต." +
+          res.data.tumbon +
+          " อ." +
+          res.data.aumper +
+          " จ." +
+          res.data.city +
+          " " +
+          res.data.code +
+          " เบอร์โทร " +
+          res.data.phone;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //get list in cart
+    let apiURL = MainURL + `/cart/list/${this.userID}`;
     await axios.get(apiURL).then((res) => {
       this.lawCart = res.data;
     });
@@ -340,47 +382,82 @@ export default {
       this.BtcQRlink = `https://www.bitcoinqrcodemaker.com/api/?style=bitcoin&amount=${this.totalPriceOfSelectbtc}&address=${BTCaddress}`;
     },
     async confirmPayment() {
-      let total = 0
-      if(this.paymentType == 'THB'){
-        total = this.totalPriceOfSelect
-      }else{
-        total = this.totalPriceOfSelectbtc
+      //add data to history DB
+      let total = 0;
+      if (this.paymentType == "THB") {
+        total = this.totalPriceOfSelect;
+      } else {
+        total = this.totalPriceOfSelectbtc;
       }
 
-      let detail = []
+      let detail = [];
 
-      for (let i of this.Listcheckeds){
-        let objDetail = {
-          productID:this.CartProductList[i].ProductID,
-          count:this.CartProductList[i].count,
-          price:this.CartProductList[i].price
+      for (let i of this.Listcheckeds) {
+        let price = 0;
+        if (this.paymentType == "THB") {
+          price = this.CartProductList[i].price;
+        } else {
+          price = this.priceInBTC(this.CartProductList[i].price);
         }
-        detail.push(objDetail)
+        let objDetail = {
+          productID: this.CartProductList[i].ProductID,
+          count: this.CartProductList[i].count,
+          price: price,
+        };
+        detail.push(objDetail);
       }
 
-      let apiUrl = MainURL+`/buy_history/addHistory/`;
-      let history = {}
-      history.userID = this.IDuser
-      history.detail = detail
-      history.total = total
-      history.paymentType = this.paymentType
+      let apiUrl = MainURL + `/buy_history/addHistory/`;
+      let history = {};
+      history.userID = this.userID;
+      history.detail = detail;
+      history.total = total;
+      history.paymentType = this.paymentType;
+      history.address = this.address;
 
-      await axios.post(apiUrl,history).then(res =>{
-        console.log(res.data.msg)
-      }).catch(err =>{
-        console.log(err)
-      })
+      let delcart = true;
+      await axios
+        .post(apiUrl, history)
+        .then((res) => {
+          console.log(res.data.msg);
 
-      
-      for (let i of this.Listcheckeds){
-        apiUrl = MainURL+`/cart/delFromCart/${this.CartProductList[i].IDinDBcart}/`
-        await axios.delete(apiUrl).then(() =>{
-          this.$emit("update-cart");
-        }).catch(err =>{
-          console.log(err)
+          alert("การสั่งซื้อเสร็จสิ้น");
         })
+        .catch((err) => {
+          console.log(err);
+          delcart = false;
+          alert("!การสั่งซื้อไม่สำเร็จ เกิดข้อผิดพลาดบางอย่าง");
+        });
+
+        //del product from cart and update count in Stock
+      if (delcart) {
+        
+        for (let i of this.Listcheckeds) {
+          //del product from cart
+          apiUrl =
+            MainURL +
+            `/cart/delFromCart/${this.CartProductList[i].IDinDBcart}/`;
+          await axios
+            .delete(apiUrl)
+            .then(() => {
+              this.$emit("update-cart");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          //updte count i Stock
+          apiUrl = MainURL + `/product/updateCount/${this.CartProductList[i].ProductID}`
+          let minusCount  = ((this.CartProductList[i].count)-((this.CartProductList[i].count)*2))
+          console.log(minusCount)
+          await axios.put(apiUrl,{count: minusCount}).then(() =>{}).catch((err)=>{
+            console.log(err)
+          });
+
+        }
+        
+        
       }
-      alert('การสั่งซื้อเสร็จสิ้น')
       this.$router.push("/");
     },
   },

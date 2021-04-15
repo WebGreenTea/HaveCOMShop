@@ -57,65 +57,19 @@ router.post('/verify-token', async (req, res) => {
     }
 })
 
-/*router.put('/addToCart', async (req, res, next) => {
-    let userID = req.body.userID
-    let productID = req.body.productID
-    let count = req.body.count
-    let userdata = await UserModel.find({ _id: userID, "cart.productID": productID }, (err) => {
-        if (err) {
-            return next(err)
-        }
-    })
-    let sizeObj = 0
-    for (let key in userdata) {
-        if (userdata.hasOwnProperty(key)) {
-            sizeObj++;
-        }
+router.get('/getAddress/:id',async (req,res) =>{
+    const userID = req.params.id;
+    try{
+        let user = await UserModel.findById(userID)
+        let fulladdress = user.address
+        fulladdress.fullname = user.first_name + " " + user.last_name
+        fulladdress.phone = user.phone
+        return res.json(user.address)
+    }catch(err){
+        return res.status(500).json({message: err.message})
     }
-
-    console.log(userdata)
-
-    if (!sizeObj) {
-
-        await UserModel.findOneAndUpdate({ "_id": userID }, {
-            $push: { "cart": { productID: productID, count: count } }
-        })
-    }else{
-        
-    } 
     
-    /*else {
-        
-        let countloop = 0
-        let flag = true
-        for (let cart of userdata.cart) {
-
-            if (cart.productID == productID) {
-                userdata.cart[countloop].count += count
-                flag = false
-                break
-            }
-            countloop += 1
-        }
-        if (flag) {
-            
-            userdata.cart.push({ productID: productID, count: count })
-        }
-        await UserModel.findByIdAndUpdate(userID, {
-            cart: userdata.cart
-        }, (err) => {
-            if (err) {
-                return next(err)
-            }
-        })
-
-    }
-    res.json({ status: 'success' })
-
-
-
-})*/
-
+})
 
 
 
