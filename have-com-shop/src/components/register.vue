@@ -18,7 +18,7 @@
 <div class="container-fulid  pt-5 pb-5">
   <div class="container pt-5 pl-5 pr-5 bg-dark text-light  border-custom">
     <div class="d-flex justify-content-center mb-5 bg-info text-light rounded-pill">
-      <h1>HaveCOM SHOP</h1>
+      <router-link to="/" class="text-light"><h1>HaveCOM SHOP</h1></router-link>
     </div>
     <form @submit.prevent="handleSubmit">
       <div class="form-group ml-5 mr-5 pl-5 pr-5">
@@ -96,6 +96,7 @@
             <div class="mt-3">
               <input
               type="text"
+              maxlength="35"
               required
               placeholder="บ้านเลขที่"
               v-model="user.address.number"
@@ -103,12 +104,14 @@
             <input
               class="ml-4"
               type="text"
+              maxlength="35"
               placeholder="หมู่"
               v-model="user.address.moo"
             />
             <input
               class="ml-4"
               type="text"
+              maxlength="35"
               placeholder="ถนน"
               v-model="user.address.road"
             />
@@ -117,6 +120,7 @@
             <div class="mt-3">
               <input
               type="text"
+              maxlength="35"
               required
               placeholder="ตำบล"
               v-model="user.address.tumbon"
@@ -124,6 +128,7 @@
             <input
               class="ml-4"
               type="text"
+              maxlength="35"
               required
               placeholder="อำเภอ"
               v-model="user.address.aumper"
@@ -131,6 +136,7 @@
             <input
               class="ml-4"
               type="text"
+              maxlength="35"
               required
               placeholder="จังหวัด"
               v-model="user.address.city"
@@ -140,6 +146,7 @@
             <div class="mt-3">
               <input
               type="number"
+              maxlength="6"
               required
               placeholder="รหัสไปรษณีย์"
               v-model="user.address.code"
@@ -153,7 +160,7 @@
             <label class="font-18">รหัสผ่าน</label>
             <input
             class="form-control"
-            v-on:keyup="passchek"
+            
             type="password"
             pattern=".{8,}"
             title="8 characters minimum"
@@ -167,145 +174,30 @@
             <label class="font-18">ยืนยันรหัสผ่าน</label>
             <input
             class="form-control"
-            v-on:keyup="passchek"
-            v-model="password"
+            
+            v-model="ConPass"
             type="password"
             placeholder="ยืนยันรหัสผ่าน"
             maxlength="35"
             required
-          /><div class="errpwd text-warning"></div>
+          /><div class="text-warning" v-if="!checkConfirm() && user.password != '' && ConPass != ''">
+            <p >*ยืนยันรหัสผ่านผิด</p>
+          </div>
           </div>
         </div>
-        
+        <div class="d-flex justify-content-end mt-2">
+          <p >มีบัญชีอยู่แล้ว? <router-link to="/login">Login</router-link> </p>
+        </div>
 
         <div class="d-flex justify-content-center mt-2 pb-5">
-          <button class="btn btn-info" type="submit" name="userReg" disabled>Register</button>
+          <button class="btn btn-info" type="submit" name="userReg" :disabled="!checkConfirm()">Register</button>
         </div>
-        
-
-       
-
         
       </div>
     </form>
   </div>
 </div>
-  
-<!--
-  <div class="container mt-5">
-    <div>
-      <div id="form">
-        <form @submit.prevent="handleSubmit">
-          <div>{{ errorstatus }}</div>
-          <label>Email</label>
-          <input
-            @click="disableErr"
-            type="email"
-            v-model="user.email"
-            placeholder="email"
-            maxlength="40"
-          />
-          <label>Username</label>
-          <input
-            @click="disableErr"
-            type="text"
-            v-model="user.username"
-            placeholder="username"
-            maxlength="15"
-            required
-          />
-
-          <label>ชื่อ</label>
-          <input
-            type="text"
-            v-model="user.first_name"
-            placeholder="ชื่อ"
-            maxlength="35"
-            required
-          />
-
-          <label>นามสกุล</label>
-          <input
-            type="text"
-            v-model="user.last_name"
-            placeholder="นามสกุล"
-            maxlength="35"
-            required
-          />
-
-          <label>เบอร์โทรศัพท์</label>
-          <input
-            type="text"
-            v-model="user.phone"
-            placeholder="เบอร์โทรศัพท์"
-            maxlength="10"
-            required
-          />
-
-          <fieldset id="fildpad">
-            <legend>ที่อยู่(สำหรับการจัดส่งสินค้า)</legend>
-            <input
-              type="text"
-              required
-              placeholder="บ้านเลขที่"
-              v-model="user.address.number"
-            />
-            <input type="text" placeholder="หมู่" v-model="user.address.moo" />
-            <input type="text" placeholder="ถนน" v-model="user.address.road" />
-            <input
-              type="text"
-              required
-              placeholder="ตำบล"
-              v-model="user.address.tumbon"
-            />
-            <input
-              type="text"
-              required
-              placeholder="อำเภอ"
-              v-model="user.address.aumper"
-            />
-            <input
-              type="text"
-              required
-              placeholder="จังหวัด"
-              v-model="user.address.city"
-            />
-            <input
-              type="number"
-              required
-              placeholder="รหัสไปรษณีย์"
-              v-model="user.address.code"
-            />
-          </fieldset>
-
-         
-          <label>รหัสผ่าน</label>
-          <input
-            v-on:keyup="passchek"
-            type="password"
-            v-model="user.password"
-            placeholder="รหัสผ่าน"
-            maxlength="35"
-            required
-          />
-
-          <label>ยืนยันรหัสผ่าน</label>
-          <input
-            v-on:keyup="passchek"
-            v-model="password"
-            type="password"
-            placeholder="ยืนยันรหัสผ่าน"
-            maxlength="35"
-            required
-          />
-          <div class="errpwd"></div>
-
-          <button class="btn" type="submit" name="userReg">สมัคร</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  -->
+ 
 </template>
 
 <script>
@@ -334,25 +226,20 @@ export default {
         },
         password: "",
       },
-      password: "",
+      
+      ConPass: "",
       errorstatus: "",
     };
   },
   methods: {
-    passchek() {
-      const errpass = document.querySelector(".errpwd");
-      const btn = document.querySelector("button");
-      if (!this.password) {
-        errpass.textContent = "";
-        btn.setAttribute("disabled", "");
-      } else if (this.user.password != this.password) {
-        errpass.textContent = "*ยืนยันรหัสผ่านผิด";
-        btn.setAttribute("disabled", "");
+    checkConfirm() {
+      if (this.user.password === "" || this.user.password != this.ConPass) {
+        return false;
       } else {
-        errpass.textContent = "";
-        btn.removeAttribute("disabled", "");
+        return true;
       }
     },
+    
     handleSubmit() {
       let apiURL = MainURL + "/user/register";
       axios

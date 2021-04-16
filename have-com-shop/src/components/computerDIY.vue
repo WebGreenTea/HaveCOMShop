@@ -776,13 +776,16 @@ import { MainURL } from "./js/MainUrl";
 import axios from "axios";
 import { promPayID } from "./js/prompPayID";
 import { BTCaddress } from "./js/bitcoinAddress";
+import { checklogin } from "./js/verify.js";
 
 export default {
   emits: ["set-nav", "update-cart"],
   props: ["Inlogin", "userID", "cart"],
   data() {
     return {
+      login: false,
       btc: null,
+
       allCPU: [],
       allMainboard: [],
       allVGA: [],
@@ -1005,7 +1008,6 @@ export default {
       }
     },
     async confirmPayment() {
-
       //add to history DB
       let total = 0;
       if (this.paymentType == "THB") {
@@ -1041,41 +1043,51 @@ export default {
       }
 
       let history = {};
-      history.userID = this.userID
-      history.detail = detail
-      history.total = total
-      history.paymentType = this.paymentType
-      history.build = true
+      history.userID = this.userID;
+      history.detail = detail;
+      history.total = total;
+      history.paymentType = this.paymentType;
+      history.build = true;
       history.address = this.address;
       let apiUrl = MainURL + "/buy_history/addHistory/";
 
+      let updatecount = true;
       await axios
         .post(apiUrl, history)
         .then((res) => {
           console.log(res.data.msg);
           alert("การสั่งซื้อเสร็จสิ้น");
-          this.$router.push("/");
         })
         .catch((err) => {
           console.log(err);
           alert("!การสั่งซื้อไม่สำเร็จ เกิดข้อผิดพลาดบางอย่าง");
+          updatecount = false;
+          
         });
 
-        //update count in Stock
-        for(let i of detail){
-          apiUrl = MainURL + `/product/updateCount/${i.productID}`
-          await axios.put(apiUrl,{count: -1}).then(() =>{}).catch(err =>{
-            if(err){
-              console.log(err)
-            }
-          })
-          
+      //update count in Stock
+      if (updatecount) {
+        for (let i of detail) {
+          apiUrl = MainURL + `/product/updateCount/${i.productID}`;
+          await axios
+            .put(apiUrl, { count: -1 })
+            .then(() => {})
+            .catch((err) => {
+              if (err) {
+                console.log(err);
+              }
+            });
         }
+      }
+      this.$router.push("/");
     },
   },
 
   async created() {
-    if (!this.Inlogin) {
+    //login check
+    const loingdata = await checklogin();
+    this.login = loingdata.login;
+    if (!this.login) {
       this.$router.push("/login");
     }
 
@@ -1087,12 +1099,12 @@ export default {
     await axios
       .get(MainURL + `/user/getAddress/${this.userID}`)
       .then((res) => {
-        this.address += res.data.fullname + " " + res.data.number;
+        this.address += res.data.first_name + " " + res.data.last_name + " " + res.data.number;
         if (res.data.road !== "") {
-          this.address += res.data.road;
+          this.address += " ถ."+res.data.road;
         }
         if (res.data.moo !== "") {
-          this.address += res.data.moo;
+          this.address += " หมู่"+res.data.moo;
         }
         this.address +=
           " ต." +

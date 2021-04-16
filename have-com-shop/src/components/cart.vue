@@ -253,12 +253,12 @@ export default {
     await axios
       .get(MainURL + `/user/getAddress/${this.userID}`)
       .then((res) => {
-        this.address += res.data.fullname + " " + res.data.number;
+        this.address += res.data.first_name + " " + res.data.last_name + " " + res.data.number;
         if (res.data.road !== "") {
-          this.address += res.data.road;
+          this.address += " ถ."+res.data.road;
         }
         if (res.data.moo !== "") {
-          this.address += res.data.moo;
+          this.address += " หมู่"+res.data.moo;
         }
         this.address +=
           " ต." +

@@ -20,7 +20,7 @@
             </p>
             <br />
             <div v-if="count != 0">
-              <button class="btn btn-info mr-3 ml-3">ซื้อสินค้า</button>
+              <button class="btn btn-info mr-3 ml-3" @click="buyNow">ซื้อสินค้า</button>
               <button class="btn btn-secondary" @click="addtoCart">
                 เพิ่มไปยังรถเข็น
               </button>
@@ -106,6 +106,9 @@ export default {
           });
       }
     },
+    buyNow(){
+      this.$router.push({ name: "buyNow", params: { id: this.id } });
+    }
   },
 };
 </script>

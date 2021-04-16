@@ -35,8 +35,15 @@
             >
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
               <li>
+                <router-link to="/addressSetting" class="dropdown-item">ตั้งค่าชื่อและที่อยู่</router-link>
+              </li>
+              <li>
+                <router-link to="/passwordSetting" class="dropdown-item">เปลี่ยนรหัสผ่าน</router-link>
+              </li>
+              <li>
                 <a href="" @click="Logout" class="dropdown-item">Logout</a>
               </li>
+              
             </ul>
           </li>
         </ul>

@@ -7,6 +7,9 @@ import addPD from "@/components/admin/addPD.vue";
 import productDetail from "@/components/productDetail.vue";
 import cart from "../components/cart.vue";
 import computerDIY from "../components/computerDIY.vue";
+import buyNow from '@/components/buyNow.vue';
+import addressSetting from '@/components/addressSetting.vue';
+import passwordSetting from '@/components/passwordSetting.vue';
 
 
 const routes = [
@@ -41,6 +44,11 @@ const routes = [
     component: productDetail,
   },
   {
+    path: "/buyNow/:id",
+    name: "buyNow",
+    component: buyNow,
+  },
+  {
     path: "/cart",
     name: "cart",
     component: cart,
@@ -50,6 +58,18 @@ const routes = [
     name: "computerDIY",
     component: computerDIY,
   },
+  {
+    path: "/addressSetting",
+    name: "addressSetting",
+    component: addressSetting,
+  },
+  {
+    path: "/passwordSetting",
+    name: "passwordSetting",
+    component: passwordSetting,
+  },
+
+  
 
 ];
 

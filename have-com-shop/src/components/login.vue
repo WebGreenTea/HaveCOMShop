@@ -20,10 +20,13 @@
       <div
         class="d-flex justify-content-center mb-5 bg-info text-light rounded-pill"
       >
-        <h1>HaveCOM SHOP</h1>
+      <router-link to="/" class="text-light"><h1>HaveCOM SHOP</h1></router-link>
+        
       </div>
+      
       <form @submit.prevent="handleLogin">
         <div class="form-group ml-5 mr-5 pl-5 pr-5">
+          <h3 class="text-warning">{{error}}</h3>
           <label for="username" class="font-18">Username</label>
           <input
             class="form-control"
@@ -41,8 +44,12 @@
             id="password"
             v-model="login.password"
           />
+          <div class="d-flex justify-content-end mt-2">
+          <p >ยังไม่มีบัญชี? <router-link to="/register">Register</router-link> </p>
         </div>
-        <div class="d-flex justify-content-center mt-4 pb-4">
+        </div>
+        
+        <div class="d-flex justify-content-center  pb-4">
           <button class="btn btn-info" type="submit" name="login">Login</button>
         </div>
       </form>
@@ -91,13 +98,13 @@ export default {
         .post(apiURL, this.login)
         .then((res) => {
           if (res.data.error) {
-            this.error = res.data.error;
+            this.error = "*" + res.data.error;
           } else {
             localStorage.setItem("token", res.data.data);
             //this.$router.push("/");
             location.reload();
           }
-          console.log(res.data.data);
+          
         })
         .catch((error) => {
           console.log(error);
