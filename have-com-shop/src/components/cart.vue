@@ -401,6 +401,7 @@ export default {
         }
         let objDetail = {
           productID: this.CartProductList[i].ProductID,
+          productName: this.CartProductList[i].ProductName,
           count: this.CartProductList[i].count,
           price: price,
         };

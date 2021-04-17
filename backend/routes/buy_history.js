@@ -27,5 +27,16 @@ router.post('/addHistory/', async (req, res, next) => {
 
 })
 
+router.get('/getHistory/:id', async (req, res, next) => {
+    const userID = req.params.id;
+    await buy_historyModel.find({userID: userID},(err,data) =>{
+        if(err){
+            return next(err)
+        }else{
+            res.json(data)
+        }
+    })
+})
+
 
 module.exports = router

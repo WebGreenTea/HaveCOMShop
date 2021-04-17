@@ -35,6 +35,9 @@
             >
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
               <li>
+                <router-link to="/history" class="dropdown-item">ประวัติการสั่งซื้อ</router-link>
+              </li>
+              <li>
                 <router-link to="/addressSetting" class="dropdown-item">ตั้งค่าชื่อและที่อยู่</router-link>
               </li>
               <li>

@@ -687,7 +687,7 @@
               </h2>
             </div>
           </div>
-          <div class="col-md-3" v-if="readyToPay()">
+          <div class="col-md-3" >
             <div>
               <h4 class="d-flex justify-content-center">ต้องการชำระด้วย?</h4>
               <div class="d-flex justify-content-center">
@@ -1036,6 +1036,7 @@ export default {
         }
         let objDetail = {
           productID: i._id,
+          productName: i.PDname,
           count: 1,
           price: price,
         };

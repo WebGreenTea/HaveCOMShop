@@ -191,6 +191,7 @@ export default {
 
       let objOfdetail = {};
       objOfdetail.productID = this.productID;
+      objOfdetail.productName = this.name;
       objOfdetail.count = this.countToBuy;
       objOfdetail.price = price;
 
