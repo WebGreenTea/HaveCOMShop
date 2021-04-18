@@ -464,9 +464,3 @@ export default {
   },
 };
 </script>
-<style >
-.checkbox-lg {
-  width: 2rem;
-  height: 2rem;
-}
-</style>

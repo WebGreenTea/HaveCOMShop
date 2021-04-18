@@ -1199,14 +1199,3 @@ export default {
   },
 };
 </script>
-<style>
-div {
-  /*border: 1px solid red;*/
-}
-.maindivDIYpage {
-  margin: auto;
-  width: 85%;
-
-  padding: 10px;
-}
-</style>

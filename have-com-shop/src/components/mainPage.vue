@@ -203,26 +203,7 @@ export default {
   },
 };
 </script>
-<style >
-#productArea {
-  cursor: pointer;
-}
 
-.bg-overlay {
-  background: url("https://drive.google.com/uc?export=view&id=1lw1o9JVs42xuZB_zly4zzdc6QurYrjW0");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  color: #fff;
-  height: 300px;
-  padding-top: 100px;
-}
-
-.card:hover {
-  background-color: #17a2b8;
-  color: #fff;
-}
-</style>
 
 
 

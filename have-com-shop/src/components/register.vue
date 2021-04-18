@@ -270,29 +270,3 @@ export default {
   },
 };
 </script>
-<style>
-@import "./css/registerCSS.css";
-
-.font-25 {
-  font-size: 25px;
-}
-.font-18 {
-  font-size: 18px;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.border-custom{
-  border-radius: 20px;
-}
-.register-bg{
-  background-color: dimgrey;
-  /*background: url("https://drive.google.com/uc?export=view&id=1mURFFMM8BbMcO9ipZDQ8oSUSgiBWv0Qb");*/
-  background-size: cover;
-  background-position: center center;
-}
-</style>
