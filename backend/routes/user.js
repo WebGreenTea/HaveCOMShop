@@ -26,23 +26,26 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    try {
+        const user = await UserModel.findOne({ username }).lean()
+        if (!user) {
+            return res.json({ status: 'err', error: 'Invalid username or password' })
+        }
+        else if (user.password == md5(password)) {
+            const token = jwt.sign({
+                id: user._id,
+                username: user.username
+            }, JWT_SECRET
+            )
+            return res.json({ status: 'ok', data: token })
+        }
+        else {
+            return res.json({ status: 'err', error: 'Invalid username or password' })
+        }
+    } catch (err) {
+        return res.status(500).json({ message: err.message })
+    }
 
-    const user = await UserModel.findOne({ username }).lean()
-
-    if (!user) {
-        return res.json({ status: 'err', error: 'Invalid username or password' })
-    }
-    else if (user.password == md5(password)) {
-        const token = jwt.sign({
-            id: user._id,
-            username: user.username
-        }, JWT_SECRET
-        )
-        return res.json({ status: 'ok', data: token })
-    }
-    else {
-        return res.json({ status: 'err', error: 'Invalid username or password' })
-    }
 
 })
 
