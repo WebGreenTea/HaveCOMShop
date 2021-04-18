@@ -133,5 +133,5 @@ export default {
 };
 </script>
 <style>
-@import "./css/registerCSS.css";
+@import "./css/Main.css";
 </style>
