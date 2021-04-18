@@ -103,7 +103,7 @@
             />
             <input
               class="ml-4"
-              type="text"
+              type="number"
               maxlength="35"
               placeholder="หมู่"
               v-model="user.address.moo"

@@ -58,7 +58,7 @@
           <div class="col-md-4">
             <label for="moo" class="font-25">หมู่</label>
             <input
-              type="text"
+              type="number"
               id="moo"
               maxlength="35"
               class="form-control"
@@ -116,7 +116,7 @@
         <div class="col-md-4">
           <label for="code" class="font-25">รหัสไปรษณีย์</label>
           <input
-            type="text"
+            type="number"
             required
             id="code"
             maxlength="35"
