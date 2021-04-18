@@ -1123,6 +1123,7 @@ export default {
         console.log(err);
       });
 
+  //get product data
     await axios
       .get(MainURL + "/product/getPD/CPU")
       .then((res) => {
